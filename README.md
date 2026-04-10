@@ -1,97 +1,94 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# CrossAppWidgetSystem 🧠
 
-# Getting Started
+A production-ready React Native application designed to aggregate cross-app intelligence and deliver contextual insights via dynamic Home Screen widgets on Android and iOS.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+---
 
-## Step 1: Start Metro
+## 🌟 Features
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- **Contextual Suggestion Engine**: A modular, rule-based engine that processes signals from Calendar, App Usage, Contacts, and Health data.
+- **Dynamic Widgets**:
+  - **Android**: Powered by **Jetpack Glance** (Compose-based widgets) with Small, Medium, and Large variants.
+  - **iOS**: Powered by **WidgetKit & SwiftUI** with lock screen support.
+- **Intelligence Bridge**: Real-time native modules (Kotlin/Swift) that gather system signals with graceful permission handling.
+- **Privacy-First UX**: Progressive onboarding flow that explains *why* permissions are needed before requesting them.
+- **Premium Design System**: Modern, indigo-themed interface with smooth animations and lucide iconography.
+- **Full Test Suite**: Comprehensive Jest coverage for logic, hooks, and native bridges.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+---
 
-```sh
-# Using npm
-npm start
+## 🏗️ Architecture
 
-# OR using Yarn
-yarn start
-```
+The project follows a **Decoupled Event-Driven Architecture**:
 
-## Step 2: Build and run your app
+1.  **Native Layer**: Observers & Native Modules (Kotlin/Swift) gather raw signals (e.g., upcoming meetings).
+2.  **Bridge Layer**: Serializes native objects into a unified Signal Schema.
+3.  **Intelligence Hub (JS)**: Orchestrates modular `SuggestionProviders`.
+4.  **Suggestion Engine**: Calculates `relevanceScore` based on recency, frequency, and context.
+5.  **Output Layer**: Syncs computed intelligence back to Native Shared Storage (AppGroups/MMKV) for Widgets to render without waking the JS bundle.
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+---
 
-### Android
+## 🚀 Getting Started
 
-```sh
-# Using npm
-npm run android
+### Prerequisites
+- Node.js (>= 22.11.0)
+- React Native CLI
+- Android Studio (for Android)
+- Xcode (for iOS)
 
-# OR using Yarn
-yarn android
-```
+### Installation
+1.  **Clone the repository**
+2.  **Run the setup script**:
+    ```bash
+    # On Windows
+    .\setup.ps1
+    
+    # On macOS/Linux
+    ./setup.sh
+    ```
 
-### iOS
+---
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+## 📱 Commands
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+| Platform | Command |
+| :--- | :--- |
+| **Android** | `npm run android` |
+| **iOS** | `cd ios && pod install && cd .. && npm run ios` |
+| **Test** | `npm test` |
+| **Lint** | `npm run lint` |
 
-```sh
-bundle install
-```
+---
 
-Then, and every time you update your native dependencies, run:
+## 🔐 Permissions Explanation
 
-```sh
-bundle exec pod install
-```
+The app requests access to:
+- **Calendar**: To display upcoming events and calculate meeting relevance.
+- **Contacts**: To prioritize insights from favorite contacts.
+- **App Usage (Android only)**: To provide screen-time intelligence.
+- **Health (Mocked)**: To suggest activity breaks based on step count.
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+**Privacy Note**: All data processing happens on-device. No personal signals are ever uploaded to a server.
 
-```sh
-# Using npm
-npm run ios
+---
 
-# OR using Yarn
-yarn ios
-```
+## 🧪 Assumptions & Mock Data
+- **Health Data**: Currently uses mock signals as HealthKit/Google Fit integration requires enterprise entitlement.
+- **App Usage (iOS)**: Uses mock data as Apple restricts Screen Time APIs for general applications.
+- **Widget Refresh**: Updated every 15 minutes to balance battery life and data freshness.
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+---
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## 🛠️ Troubleshooting
 
-## Step 3: Modify your app
+- **Android Widget not updating**: Ensure "Battery Optimization" is disabled for the app, as it can delay `AppWidgetProvider` updates.
+- **iOS Pod Install Fail**: Check if you have the latest CocoaPods installed (`sudo gem install cocoapods`).
+- **Jest Path Error**: If running on Windows with spaces in path, use `npm test -- <path>` or `npx jest`.
 
-Now that you have successfully run the app, let's make changes!
+---
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## 🔮 Future Improvements
+- **Local ML**: Integrate TensorFlow Lite for advanced predictive pattern matching.
+- **Provider API**: Open-source the `SuggestionProvider` interface to allow 3rd party developers to contribute signal sources.
+- **Rich Notifications**: Pair widget updates with high-priority sticky notifications for critical events.

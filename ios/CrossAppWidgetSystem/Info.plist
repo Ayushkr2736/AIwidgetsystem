@@ -55,5 +55,18 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCalendarsUsageDescription</key>
+	<string>This app requires calendar access to show upcoming events in your intelligence widget.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>This app requires contacts access to suggest relevant people in your intelligence widget.</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>crossapp</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
