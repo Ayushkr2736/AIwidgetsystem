@@ -39,13 +39,9 @@ The project follows a **Decoupled Event-Driven Architecture**:
 
 ### Installation
 1.  **Clone the repository**
-2.  **Run the setup script**:
+2.  **Install dependencies**:
     ```bash
-    # On Windows
-    .\setup.ps1
-    
-    # On macOS/Linux
-    ./setup.sh
+    npm install
     ```
 
 ---
