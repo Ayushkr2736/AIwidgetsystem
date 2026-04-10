@@ -1,53 +1,45 @@
-# CrossAppWidgetSystem 🧠
+# CrossApp Intelligence Widget System 🧠
 
-A production-ready React Native application designed to aggregate cross-app intelligence and deliver context-aware updates to Home Screen widgets on both Android and iOS. This project demonstrates high-performance native integrations, modern widget development, and robust decoupled architecture.
+A production-grade React Native application that aggregates cross-app system intelligence to deliver predictive, context-aware updates to Home Screen widgets on both Android and iOS. 
 
----
-
-## 🎯 Interviewer Quick Reference
-This section directly maps the evaluation criteria to the implementation in this repository.
-
-- [x] **High-level architectural diagram:** See the `docs/architecture.md` file for a full Mermaid diagram of the event-driven system.
-- [x] **Low-level design:** Documented below in the Architecture section, detailing the data pipeline, caching tiers, and priority-scoring suggestion engine.
-- [x] **Working Android + iOS widgets:** Built with modern native frameworks: Jetpack Glance (`android/app/src/main/java/com/crossappwidgetsystem/widget/`) and WidgetKit (`ios/IntelligenceWidget/`).
-- [x] **Native modules:** Custom TypeScript bridges to native code handles system permissions and querying (`app/native/`, `android/.../intelligence/`, `ios/.../Intelligence/`).
-- [x] **React Native hooks:** Extracted complex logic into clean React Hooks (`app/hooks/useWidget.ts`, `app/hooks/useContextualSuggestions.ts`).
-- [x] **Tests for native modules:** Full Jest suite covering the modules, state management, and suggestion engine (`tests/nativeModules.test.ts`).
-- [x] **Documentation:** Thoroughly documented codebase with clean code principles, this README, and an extensive `docs/architecture.md` file.
+This project is built with a focus on performant native module bridging, custom React Native hooks, and decoupled event-driven architecture, ensuring widgets update dynamically without waking the main JavaScript bundle.
 
 ---
 
-## 🌟 Core Features
+## 🌟 Key Features
 
-- **Contextual Suggestion Engine**: A modular, rule-based engine that processes cross-app signals (Calendar, App Usage, Contacts) based on Recency, Relevance, and Criticality.
-- **Dynamic Native Widgets**: Fully native Home Screen widgets that read from shared storage rather than waking up the main JS bundle, ensuring maximum battery efficiency.
-- **Intelligence Bridge**: Real-time native modules (Kotlin/Swift) that gather system signals with graceful permission handling.
-- **Privacy-First UX**: Progressive onboarding flow that explains *why* permissions are needed before requesting them.
-
----
-
-## 🏗️ Architecture & Data Pipeline
-
-The project follows a **Decoupled Event-Driven Architecture**.
-
-### The Pipeline:
-1. **Ingestion (Native):** Listeners in Kotlin/Swift detect system events (e.g. Calendar updates).
-2. **Normalization (Bridge):** The React Native Bridge serializes native objects into a unified `Signal Schema`.
-3. **Processing (Suggestion Engine):** A JS orchestrator calculates a `PriorityScore` based on the context.
-4. **Distribution:** High-priority intelligence snippets are synced back to Native Layer Shared Storage (AppGroup/SharedPrefs).
-5. **Rendering (Widgets):** Jetpack Glance (Android) and SwiftUI (iOS) read directly from shared storage to update the screen instantly.
-
-*(Please view `docs/architecture.md` for the full visual diagram and caching strategy).*
+- **Context-Aware Suggestion Engine:** A robust, rule-based algorithmic engine that evaluates signals from Calendar, App Usage, and Contacts based on Recency, Relevance, and Criticality.
+- **Dynamic Native Widgets:** Designed using modern declarative native UI frameworks—**Jetpack Glance** (Android) and **WidgetKit** (iOS).
+- **Intelligence Bridge (Native Modules):** Real-time native modules written in Kotlin and Swift to gather system-level data with graceful permission handling.
+- **Predictive Caching Pipeline:** Uses MMKV and Shared AppGroups to ensure widgets have instant data access without battery drain.
 
 ---
 
-## 📱 Tech Stack & Implementation Details
+## 🏗️ System Architecture & Low-Level Design
 
-- **Framework:** React Native + TypeScript
-- **State Management:** React Hooks
-- **Android Widgets:** Jetpack Glance (Compose) + WorkManager
-- **iOS Widgets:** WidgetKit (SwiftUI) + BGTaskScheduler
-- **Testing:** Jest
+The application follows a **Decoupled Event-Driven Architecture** to separate data ingestion from UI rendering. 
+
+*Note: For a visual representation of the architecture diagram, please refer to the dedicated [`docs/architecture.md`](./docs/architecture.md) file.*
+
+### The Data Pipeline
+1. **Ingestion (Native Layer):** Native Observers (Kotlin/Swift) detect background system events like Calendar modifications or Notification pushes.
+2. **Signal Normalization (Native Modules):** The cross-platform Bridge serializes complex, asynchronous system objects into a unified `Signal Schema`.
+3. **Processing (Suggestion Engine):** The React Native Intelligence Hub acts as the orchestrator. It calculates a `PriorityScore` based on the user's current context.
+4. **Distribution (Hooks & State):** React Hooks (like `useWidget` and `useContextualSuggestions`) sync this state across the app. High-priority snippets are persisted back to **Native Shared Storage**.
+5. **Widget Architecture:** The Android and iOS widgets bypass the JS bundle completely, reading directly from shared device storage for instantaneous, zero-latency rendering.
+
+---
+
+## 📂 Project Structure Highlights
+
+The repository is modularly structured to enforce clean separation of concerns. Key implementation areas include:
+
+- **`/android/.../widget/`** - Jetpack Glance implementation for Android dynamic widgets.
+- **`/android/.../intelligence/`** - Native Kotlin modules for intercepting Android system events (Usage, Scheduling).
+- **`/ios/IntelligenceWidget/`** - SwiftUI & WidgetKit implementation for iOS Lock/Home screen widgets.
+- **`/ios/.../Intelligence/`** - Native Swift modules utilizing AppGroups and NSFileCoordinator.
+- **`/app/hooks/`** - Critical React Native hooks including `useWidget.ts` and `useContextualSuggestions.ts` to manage the bridge state.
+- **`/app/utils/`** - The core `SuggestionEngine.ts` handling the low-level data sorting and priority logic.
 
 ---
 
@@ -55,42 +47,45 @@ The project follows a **Decoupled Event-Driven Architecture**.
 
 ### Prerequisites
 - Node.js (>= 22.11.0)
-- Android Studio / Xcode
 - React Native CLI
+- Android Studio / Xcode
 
 ### Installation
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/Ayushkr2736/AIwidgetsystem.git
-    cd AIwidgetsystem
-    ```
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
-3.  **Run the App:**
-    ```bash
-    # For Android
-    npm run android
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Ayushkr2736/AIwidgetsystem.git
+   cd AIwidgetsystem
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the project:
+   ```bash
+   # Android
+   npm run android
 
-    # For iOS (Requires Mac)
-    cd ios && pod install && cd ..
-    npm run ios
-    ```
+   # iOS 
+   cd ios && pod install && cd ..
+   npm run ios
+   ```
 
 ---
 
-## 🧪 Testing
+## 🧪 Testing Setup
 
-The repository uses Jest to ensure stability. The test suite covers logic, React Hooks, and explicitly mocks the Native Modules to guarantee the bridge contract remains intact.
+Ensuring the integrity of the data bridge is critical. The codebase uses **Jest** to provide comprehensive coverage across logic, UI behavior, and Native boundaries.
 
-To run the test suite:
+- **Native Module Tests:** The test suite specifically mocks Native Modules (e.g., `tests/nativeModules.test.ts`) to verify that the bridge contract and signal ingestion behave predictably before deploying to a physical device.
+
 ```bash
+# Run the test suite
 npm test
 ```
 
 ---
 
-## 🔮 Future Improvements / Technical Assumptions
-- **Health Data & Screen Time:** Both Android HealthKit and iOS Screen Time APIs require strict enterprise permissions/entitlements. These data points are mocked in the `SuggestionEngine` to demonstrate architecture capabilities without requiring special developer accounts.
-- **Local Machine Learning:** The current suggestion engine uses rule-based heuristic scoring. A future iteration would port this to **TensorFlow Lite** for true on-device predictive pattern matching.
+## 🔮 Roadmap / Technical Constraints
+
+- **HealthKit / Screen Time Dependencies:** Certain integrations (like deep Apple Screen Time metrics) require strict enterprise developer entitlements. In development builds, these specific edge cases are mocked safely within the Suggestion Engine to simulate flow.
+- **Machine Learning Integration:** The current pipeline relies on a heuristic rule-set. A planned v2 iteration explores moving the suggestion engine to **TensorFlow Lite** for more personalized, on-device predictive processing.
